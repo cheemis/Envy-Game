@@ -16,7 +16,6 @@ public class FlatPlayerController : MonoBehaviour
     public Sprite outOfBoundsSprite;
     private float tileSize;
 
-
     //movement variables
     [SerializeField]
     private float speed = 10;
@@ -39,10 +38,9 @@ public class FlatPlayerController : MonoBehaviour
         tileSize = tilemap.cellSize.x;
 
         //set the initial position of the player
-        transform.position = GetTilePosition();
+        transform.position = GetTilePosition(transform.position);
         lastPosition = transform.position;
         destination = transform.position;
-
     }
     
 
@@ -151,11 +149,11 @@ public class FlatPlayerController : MonoBehaviour
     /// <returns>
     /// The world position of a valid tile or Vector3.zero for invalid tiles
     /// </returns>
-    private Vector3 GetTilePosition()
+    private Vector3 GetTilePosition(Vector3 target)
     {
         //get the position of the next tile to visit
-        Vector3 newPosition = new Vector3(destination.x + lastDirection.x * tileSize,
-                                          destination.y + lastDirection.y * tileSize,
+        Vector3 newPosition = new Vector3(target.x + lastDirection.x * tileSize,
+                                          target.y + lastDirection.y * tileSize,
                                           0);
 
         //get the sprite of the next tile to visit
@@ -179,7 +177,7 @@ public class FlatPlayerController : MonoBehaviour
     private void UpdateDestination()
     {
         //get new tile position
-        Vector3 newDestination = GetTilePosition();
+        Vector3 newDestination = GetTilePosition(destination);
 
         //if the new destination isn't out of bounds
         if (newDestination != Vector3.zero)
