@@ -45,6 +45,8 @@ public class FlatPlayerController : MonoBehaviour
 
     }
     
+
+
     //used for recieving input from the player
     void Update()
     {
@@ -58,27 +60,13 @@ public class FlatPlayerController : MonoBehaviour
     }
     
 
+
     //used for updating the position of the player
     private void FixedUpdate()
     {
-        Vector2 worldSpace = new Vector2(transform.position.x,
-                                         transform.position.y);
-
-        if(lastPosition != destination)
-        {
-            float distance = Vector2.Distance(worldSpace, destination);
-
-            transform.position = Vector3.Lerp(worldSpace, destination, speed/(distance * 100)); // MAGIC NUMBER
-
-            if(distance < 0.1f)
-            {
-                lastPosition = destination;
-
-                UpdateDestination();
-            }
-        }
+        MoveCharacter();
     }
-    
+
 
 
 
@@ -88,8 +76,8 @@ public class FlatPlayerController : MonoBehaviour
 
 
     /// <summary>
-    /// This function is a temporary function for recieving input from the
-    /// player
+    /// This function is a temporary function for recieving input from
+    /// the player
     /// </summary>
     /// 
     /// <returns>
@@ -108,10 +96,10 @@ public class FlatPlayerController : MonoBehaviour
         //convert to int
         int horizontal = hor == 0 ? 0 : (int)Mathf.Sign(hor);
         int vertical = vert == 0 ? 0 : (int)Mathf.Sign(vert);
-        Vector2 newDirection = new Vector2 (horizontal, vertical);
+        Vector2 newDirection = new Vector2(horizontal, vertical);
 
         //if newly held direction for horizontal movement
-        if(horizontal != 0 && horizontal != lastDirection.x)
+        if (horizontal != 0 && horizontal != lastDirection.x)
         {
             //newly held direction
             lastDirection = Vector2Int.right * horizontal;
@@ -119,7 +107,7 @@ public class FlatPlayerController : MonoBehaviour
         }
 
         //if newly held direction for vertical movement
-        if(vertical != 0 && vertical != lastDirection.y)
+        if (vertical != 0 && vertical != lastDirection.y)
         {
             //newly held direction
             lastDirection = Vector2Int.up * vertical;
@@ -128,6 +116,31 @@ public class FlatPlayerController : MonoBehaviour
 
         return pressed;
     }
+
+
+
+    /// <summary>
+    /// This function moves the player physically. This function should
+    /// be called in FixedUpdate()
+    /// </summary>
+    private void MoveCharacter()
+    {
+        Vector2 worldSpace = new Vector2(transform.position.x,
+                                         transform.position.y);
+
+
+        float distance = Vector2.Distance(worldSpace, destination);
+
+        transform.position = Vector3.Lerp(worldSpace, destination, speed / (distance * 100)); // MAGIC NUMBER
+
+        if (distance < 0.1f)
+        {
+            lastPosition = destination;
+
+            UpdateDestination();
+        }
+    }
+
 
 
     /// <summary>
@@ -141,8 +154,8 @@ public class FlatPlayerController : MonoBehaviour
     private Vector3 GetTilePosition()
     {
         //get the position of the next tile to visit
-        Vector3 newPosition = new Vector3(transform.position.x + lastDirection.x * tileSize,
-                                          transform.position.y + lastDirection.y * tileSize,
+        Vector3 newPosition = new Vector3(destination.x + lastDirection.x * tileSize,
+                                          destination.y + lastDirection.y * tileSize,
                                           0);
 
         //get the sprite of the next tile to visit
@@ -174,6 +187,7 @@ public class FlatPlayerController : MonoBehaviour
             destination = newDestination;
         }
     }
+
 
 
     // ================================================================ //
