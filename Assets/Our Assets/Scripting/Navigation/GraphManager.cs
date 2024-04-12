@@ -36,7 +36,7 @@ public class GraphManager : MonoBehaviour
 
     private Vector3[] directions = { Vector3.up, Vector3.down, Vector3.right, Vector3.left };
 
-    private void Start()
+    private void Awake()
     {
         //get the size of the tiles in the tilemap
         tileSize = tilemap.cellSize.x;
@@ -139,6 +139,7 @@ public class GraphManager : MonoBehaviour
         {
             return currentNode;
         }
+
         return null;
     }
 
@@ -157,6 +158,11 @@ public class GraphManager : MonoBehaviour
         }
     }
 
+    public Node GetRandomNode()
+    {
+        Node randomNode = nodes.ElementAt(Random.Range(0, nodes.Count)).Value;
+        return randomNode;
+    }
 
 }
 

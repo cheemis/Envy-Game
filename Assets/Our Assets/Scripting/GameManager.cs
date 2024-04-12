@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(playerMoney);
+        //Debug.Log(playerMoney);
     }
 
     // Check player money and upgrade fee for upgrade speed

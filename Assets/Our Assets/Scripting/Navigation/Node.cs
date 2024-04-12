@@ -32,6 +32,12 @@ public class Node : MonoBehaviour
         return null;
     }
 
+    public Node GetNeighbor(int index)
+    {
+        if(index < neighbors.Length) return neighbors[index];
+        return null;
+    }
+
     public void SetNeighbor(int index, Node neighbor)
     {
         if(index >= neighbors.Length) return;
