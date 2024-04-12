@@ -15,7 +15,7 @@ public class GraphManager : MonoBehaviour
 
     //node variables
     [SerializeField]
-    private Dictionary<Vector2, GameObject> nodes = new Dictionary<Vector2, GameObject>();
+    private Dictionary<Vector2, Node> nodes = new Dictionary<Vector2, Node>();
     [SerializeField]
     private GameObject nodePrefab;
     [SerializeField]
@@ -26,7 +26,7 @@ public class GraphManager : MonoBehaviour
     public Sprite outOfBoundsSprite;
     private float tileSize;
 
-    private Color[] colors = { Color.red, Color.white, Color.green, Color.blue, Color.cyan };
+    private Color[] colors = { Color.red, Color.white, Color.green, Color.blue, Color.cyan, Color.magenta, Color.yellow, Color.black };
     private int colorIndex = 0;
 
 
@@ -47,21 +47,20 @@ public class GraphManager : MonoBehaviour
     private void CreateGraph()
     {
         
-        Queue<GameObject> currentNodes = new Queue<GameObject>();
+        Queue<Node> currentNodes = new Queue<Node>();
 
-        currentNodes.Enqueue(firstNode);
-        nodes.Add(GetTilePosition(firstNode.transform.position), firstNode);
+        currentNodes.Enqueue(firstNode.GetComponent<Node>());
+        nodes.Add(GetTilePosition(firstNode.transform.position), firstNode.GetComponent<Node>());
 
         //put all the nodes on the map
         while (currentNodes.Count > 0)
         {
-            GameObject current = currentNodes.Dequeue();
-            Node currentNode = current.GetComponent<Node>();
+            Node currentNode = currentNodes.Dequeue();
 
             //see if neighbors are valid
             for(int i = 0; i < 4; i++)
             {
-                Vector3 potentialNeighbor = GetTilePosition(current.transform.position + directions[i]);
+                Vector3 potentialNeighbor = GetTilePosition(currentNode.GetPosition() + directions[i]);
 
                 //if a valid tile
                 if (potentialNeighbor != Vector3.zero)
@@ -71,13 +70,15 @@ public class GraphManager : MonoBehaviour
                                             i == 1 ? 0 :
                                             i == 2 ? 3 : 2;
 
-                    GameObject foundNeighbor;
+
+                    Node foundNeighbor;
 
                     //if tile doesn't already exists
                     if (!nodes.TryGetValue(potentialNeighbor, out foundNeighbor))
                     {
                         //create a new node
-                        foundNeighbor = Instantiate(nodePrefab, potentialNeighbor, nodePrefab.transform.rotation);
+                        GameObject neighbor = Instantiate(nodePrefab, potentialNeighbor, nodePrefab.transform.rotation);
+                        foundNeighbor = neighbor.GetComponent<Node>();
 
                         //add this node to the queue and the dictionary of nodes
                         currentNodes.Enqueue(foundNeighbor);
@@ -86,7 +87,7 @@ public class GraphManager : MonoBehaviour
 
                     //set the node as a neighbor
                     currentNode.SetNeighbor(i, foundNeighbor);
-                    foundNeighbor.GetComponent<Node>().SetNeighbor(oppositeDirection, current);
+                    foundNeighbor.GetComponent<Node>().SetNeighbor(oppositeDirection, currentNode);
 
 
                     //testing gizmo
@@ -120,6 +121,18 @@ public class GraphManager : MonoBehaviour
         Vector3 tilePosition = GetTilePosition(worldPosition);
 
         return tilePosition;
+    }
+
+    public Node GetNode(Vector3 worldPosition)
+    {
+        Vector3 tilePosition = GetTilePosition(worldPosition);
+        Node currentNode;
+
+        if (tilePosition != Vector3.zero && nodes.TryGetValue(worldPosition, out currentNode))
+        {
+            return currentNode;
+        }
+        return null;
     }
 
 }

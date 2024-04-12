@@ -6,23 +6,22 @@ using UnityEngine.Tilemaps;
 
 public class FlatPlayerController : MonoBehaviour
 {
+    /*
     // ================================================================ //
     // =========================== Variables ========================== //
     // ================================================================ //
 
-    //tilemap assets
+    //Grid
     [SerializeField]
-    private Tilemap tilemap;
-    public Sprite outOfBoundsSprite;
-    private float tileSize;
+    private GraphManager graphManager;
 
     //movement variables
     [SerializeField]
     private float speed = 10;
     [SerializeField]
     private Vector2Int lastDirection = new Vector2Int(0,0);
-    [SerializeField] private Vector2 lastPosition = new Vector2(0,0);
-    [SerializeField] private Vector2 destination = new Vector2(0,0);
+    [SerializeField] private Node lastNode;
+    [SerializeField] private Node targetNode;
 
 
 
@@ -34,11 +33,8 @@ public class FlatPlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //get the size of the tiles in the tilemap
-        tileSize = tilemap.cellSize.x;
-
         //set the initial position of the player
-        transform.position = GetTilePosition(transform.position);
+        transform.position = graphManager.GetNodePosition(transform.position);
         lastPosition = transform.position;
         destination = transform.position;
     }
@@ -149,26 +145,9 @@ public class FlatPlayerController : MonoBehaviour
     /// <returns>
     /// The world position of a valid tile or Vector3.zero for invalid tiles
     /// </returns>
-    private Vector3 GetTilePosition(Vector3 target)
-    {
-        //get the position of the next tile to visit
-        Vector3 newPosition = new Vector3(target.x + lastDirection.x * tileSize,
-                                          target.y + lastDirection.y * tileSize,
-                                          0);
 
-        //get the sprite of the next tile to visit
-        Vector3Int cellLocation = tilemap.WorldToCell(newPosition);
-        Sprite tileSprite = tilemap.GetSprite(cellLocation);
 
-        //if the tile exists and its not out of bounds
-        if(tileSprite != null && tileSprite != outOfBoundsSprite)
-        {
-            return tilemap.GetCellCenterWorld(cellLocation);
-        }
 
-        //else, return empty
-        return Vector3.zero;
-    }
 
 
     /// <summary>
@@ -191,5 +170,5 @@ public class FlatPlayerController : MonoBehaviour
     // ================================================================ //
     // ======================= Public Functions ======================= //
     // ================================================================ //
-
+    */
 }

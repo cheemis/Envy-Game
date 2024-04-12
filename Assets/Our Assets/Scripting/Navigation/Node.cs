@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Node : MonoBehaviour
 {
     [SerializeField]
-    private GameObject[] neighbors = new GameObject[4];
+    private Node[] neighbors = new Node[4];
+    private Vector3 position;
 
     public Color lineColor  = Color.white;
 
 
-    public GameObject GetNeighbor(Vector2 direction)
+    private void Awake()
+    {
+        position = transform.position;
+    }
+
+    public Node GetNeighbor(Vector2 direction)
     {
         if (direction == Vector2.up) return neighbors[0];
 
@@ -25,7 +32,7 @@ public class Node : MonoBehaviour
         return null;
     }
 
-    public void SetNeighbor(int index, GameObject neighbor)
+    public void SetNeighbor(int index, Node neighbor)
     {
         if(index >= neighbors.Length) return;
         neighbors[index] = neighbor;
@@ -35,6 +42,12 @@ public class Node : MonoBehaviour
     public void SetLineColor(Color newColor)
     {
         lineColor = newColor;
+    }
+
+    public Vector3 GetPosition()
+    {
+        if(position == null) position = transform.position;
+        return position;
     }
 
 
