@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Pellet : MonoBehaviour
 {
+    [SerializeField]
+    private int score;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +17,11 @@ public class Pellet : MonoBehaviour
     void Update()
     {
         
+    }
+
+
+    public int GetScore()
+    {
+        return score;
     }
 }

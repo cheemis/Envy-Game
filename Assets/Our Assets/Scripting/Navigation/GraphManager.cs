@@ -142,4 +142,21 @@ public class GraphManager : MonoBehaviour
         return null;
     }
 
+    public void DeleteThePelletOnNode(Vector2 position)
+    {
+        bool exist = pellets.ContainsKey(position);
+        if (exist)
+        {
+            Pellet p = pellets[position];
+            // add the score to player
+            GameManager.Instance.AddPlayerMoney(p.GetScore());
+            // remove
+            pellets.Remove(position);
+
+            Destroy(p.gameObject);
+        }
+    }
+
+
 }
+

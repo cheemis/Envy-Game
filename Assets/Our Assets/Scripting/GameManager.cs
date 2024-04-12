@@ -10,6 +10,15 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int playerMoney = 0;
 
+    [SerializeField]
+    private int currentUpgradeSpeedFee = 10;
+    [SerializeField]
+    private float currentSpeedUpgradeValue = 5;
+
+    [SerializeField]
+    private float playerSpeed = 10;
+
+
 
     private void Awake()
     {
@@ -23,7 +32,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-       
+
         SceneManager.sceneLoaded += OnSceneLoaded;
 
     }
@@ -44,18 +53,45 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log(playerMoney);
     }
 
-
-    public void UpgradeSpeed(float addSpeed)
+    // Check player money and upgrade fee for upgrade speed
+    public void MayUpgradePlayerSpeed()
     {
+        if (playerMoney >= currentUpgradeSpeedFee)
+        {
+            playerMoney -= currentUpgradeSpeedFee;
+            //FlatPlayerController player = GameObject.FindWithTag("Player").GetComponent<FlatPlayerController>();
+            //player.AddPlayerSpeed(currentSpeedUpgradeValue);
+            playerSpeed += currentSpeedUpgradeValue;
 
+            // may change both current Speed fee and Current speed change value
+
+        }
+        else
+        {
+            Debug.Log("not enough money");
+        }
     }
+
+    public float GetPlayerSpeed()
+    {
+        return playerSpeed;
+    }
+
+    public void AddPlayerMoney(int addMoney)
+    {
+        playerMoney += addMoney;
+    }
+
+
+
 
 }

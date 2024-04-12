@@ -41,6 +41,9 @@ public class FlatPlayerController : MonoBehaviour
         transform.position = tilePosition;
         lastNode = graphManager.GetNode(tilePosition);
         targetNode = lastNode;
+
+        //update the player speed by checking the game manager
+        speed = GameManager.Instance.GetPlayerSpeed();
     }
     
 
@@ -134,8 +137,16 @@ public class FlatPlayerController : MonoBehaviour
 
         if (distance < 0.1f)
         {
+            // delete the pellet on that node
+            graphManager.DeleteThePelletOnNode(destination);
+
             UpdateDestination();
         }
+    }
+
+    public void AddPlayerSpeed(float addSpeed)
+    {
+        speed += addSpeed;
     }
 
 
