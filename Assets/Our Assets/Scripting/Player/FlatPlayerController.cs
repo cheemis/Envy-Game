@@ -138,7 +138,7 @@ public class FlatPlayerController : MonoBehaviour
         if (distance < 0.1f)
         {
             // delete the pellet on that node
-            graphManager.DeleteThePelletOnNode(destination);
+            graphManager.DeleteThePelletOnNode(destination, true);
 
             UpdateDestination();
         }

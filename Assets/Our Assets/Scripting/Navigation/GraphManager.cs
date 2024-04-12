@@ -143,19 +143,28 @@ public class GraphManager : MonoBehaviour
         return null;
     }
 
-    public void DeleteThePelletOnNode(Vector2 position)
+    public void DeleteThePelletOnNode(Vector2 position, bool isPlayer)
     {
         bool exist = pellets.ContainsKey(position);
         if (exist)
         {
             Pellet p = pellets[position];
+
             // add the score to player
-            GameManager.Instance.AddPlayerMoney(p.GetScore());
+            if(isPlayer)
+            {
+                GameManager.Instance.AddPlayerMoney(p.GetScore());
+            }
+            else
+            {
+                GameManager.Instance.AddEnemyMoney(p.GetScore());
+            }
+            
             // remove
             pellets.Remove(position);
 
             // if the pellets is empty, we can end the game and go to the upgrading page.
-            if (pellets.Count < 140) //hack 40 for debugging
+            if (pellets.Count < 1) //hack 40 for debugging
             {
                 GameManager.Instance.FinishCurrentGame();
                 return;
@@ -167,8 +176,16 @@ public class GraphManager : MonoBehaviour
 
     public Node GetRandomNode()
     {
-        Node randomNode = nodes.ElementAt(Random.Range(0, nodes.Count)).Value;
-        return randomNode;
+
+        if (pellets.Count == 0) return null;
+
+        Vector3 randomPellet = pellets.ElementAt(Random.Range(0, pellets.Count)).Value.transform.position;
+        Node pelletNode;
+        if (nodes.TryGetValue(randomPellet, out pelletNode))
+        {
+            return pelletNode;
+        }
+        return null;
     }
 
 }

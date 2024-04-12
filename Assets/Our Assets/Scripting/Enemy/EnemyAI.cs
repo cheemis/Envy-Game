@@ -73,6 +73,7 @@ public class EnemyAI : MonoBehaviour
 
         if (distance < 0.1f)
         {
+            graphManager.DeleteThePelletOnNode(destination, false);
             UpdateDestination();
         }
     }
@@ -83,6 +84,8 @@ public class EnemyAI : MonoBehaviour
         //choose a random target in graph
         Node newTarget = graphManager.GetRandomNode();
 
+        if (newTarget == null) return; //usually won't get this case
+
         Stack<Node> stack = DepthFirstSearch(destinationNode, newTarget);
 
         //couldn't find path
@@ -90,8 +93,6 @@ public class EnemyAI : MonoBehaviour
         {
             return;
         }
-
-        Debug.Log("found a path that is " +  stack.Count + " nodes long");
 
         while(stack.Count > 0)
         {

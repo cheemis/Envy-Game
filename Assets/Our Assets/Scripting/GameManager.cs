@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private int playerMoney = 0;
+    [SerializeField]
+    private int enemyMoney = 0;
 
     [SerializeField]
     private int currentUpgradeSpeedFee = 10;
@@ -21,6 +23,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private Text moneyText;
+    [SerializeField]
+    private Text enemyText;
 
 
 
@@ -63,7 +67,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        moneyText.text = "Money: " + playerMoney;
+        
     }
 
     // Check player money and upgrade fee for upgrade speed
@@ -72,6 +76,7 @@ public class GameManager : MonoBehaviour
         if (playerMoney >= currentUpgradeSpeedFee)
         {
             playerMoney -= currentUpgradeSpeedFee;
+            moneyText.text = "My Money: " + playerMoney;
             //FlatPlayerController player = GameObject.FindWithTag("Player").GetComponent<FlatPlayerController>();
             //player.AddPlayerSpeed(currentSpeedUpgradeValue);
             playerSpeed += currentSpeedUpgradeValue;
@@ -93,6 +98,13 @@ public class GameManager : MonoBehaviour
     public void AddPlayerMoney(int addMoney)
     {
         playerMoney += addMoney;
+        moneyText.text = "My Money: " + playerMoney;
+    }
+
+    public void AddEnemyMoney(int addMoney)
+    {
+        enemyMoney += addMoney;
+        enemyText.text = "Enemy Money: " + enemyMoney;
     }
 
     public void FinishCurrentGame()
@@ -103,6 +115,8 @@ public class GameManager : MonoBehaviour
 
     public void NextRoundGame()
     {
+        playerMoney = 0;
+        enemyMoney = 0;
         SceneManager.LoadScene(0);
     }
 
