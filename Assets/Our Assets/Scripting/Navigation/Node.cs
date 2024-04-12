@@ -9,6 +9,8 @@ public class Node : MonoBehaviour
     [SerializeField]
     private GameObject[] neighbors = new GameObject[4];
 
+    public Color lineColor  = Color.white;
+
 
     public GameObject GetNeighbor(Vector2 direction)
     {
@@ -30,6 +32,12 @@ public class Node : MonoBehaviour
     }
 
 
+    public void SetLineColor(Color newColor)
+    {
+        lineColor = newColor;
+    }
+
+
     void OnDrawGizmos()
     {
         Vector3 currPos = transform.position;
@@ -42,6 +50,7 @@ public class Node : MonoBehaviour
                 Vector3 neighborPos = neighbors[i].transform.position;
 
                 //draw a line from the current object to half way to next object
+                Gizmos.color = lineColor;
                 Gizmos.DrawLine(currPos, currPos + (neighborPos - currPos) / 2);
             }
         }
