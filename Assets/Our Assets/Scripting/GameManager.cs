@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Text enemyText;
 
+    [SerializeField]
+    private bool playerWon = false;
+
 
 
     private void Awake()
@@ -109,6 +112,7 @@ public class GameManager : MonoBehaviour
 
     public void FinishCurrentGame()
     {
+        playerWon = playerMoney > enemyMoney ? true : false;
         // swith to the upgrading scene
         SceneManager.LoadScene(1);
     }
@@ -118,6 +122,11 @@ public class GameManager : MonoBehaviour
         playerMoney = 0;
         enemyMoney = 0;
         SceneManager.LoadScene(0);
+    }
+
+    public bool GetPlayerWon()
+    {
+        return playerWon;
     }
 
 
