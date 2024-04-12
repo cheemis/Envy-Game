@@ -46,11 +46,11 @@ public class Node : MonoBehaviour
 
     public Vector3 GetPosition()
     {
-        if(position == null) position = transform.position;
+        if(position == Vector3.zero) position = transform.position;
         return position;
     }
 
-
+    
     void OnDrawGizmos()
     {
         Vector3 currPos = transform.position;
@@ -63,7 +63,7 @@ public class Node : MonoBehaviour
                 Vector3 neighborPos = neighbors[i].transform.position;
 
                 //draw a line from the current object to half way to next object
-                Gizmos.color = lineColor;
+                //Gizmos.color = lineColor;
                 Gizmos.DrawLine(currPos, currPos + (neighborPos - currPos) / 2);
             }
         }

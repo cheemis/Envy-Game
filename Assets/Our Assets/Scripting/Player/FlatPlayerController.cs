@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class FlatPlayerController : MonoBehaviour
 {
-    /*
+
     // ================================================================ //
     // =========================== Variables ========================== //
     // ================================================================ //
@@ -14,14 +14,17 @@ public class FlatPlayerController : MonoBehaviour
     //Grid
     [SerializeField]
     private GraphManager graphManager;
+    [SerializeField]
+    private Node lastNode;
+    [SerializeField]
+    private Node targetNode;
 
     //movement variables
     [SerializeField]
     private float speed = 10;
     [SerializeField]
-    private Vector2Int lastDirection = new Vector2Int(0,0);
-    [SerializeField] private Node lastNode;
-    [SerializeField] private Node targetNode;
+    private Vector2Int direction = new Vector2Int(0,0);
+    
 
 
 
@@ -34,9 +37,10 @@ public class FlatPlayerController : MonoBehaviour
     void Start()
     {
         //set the initial position of the player
-        transform.position = graphManager.GetNodePosition(transform.position);
-        lastPosition = transform.position;
-        destination = transform.position;
+        Vector3 tilePosition = graphManager.GetNodePosition(transform.position);
+        transform.position = tilePosition;
+        lastNode = graphManager.GetNode(tilePosition);
+        targetNode = lastNode;
     }
     
 
@@ -49,7 +53,7 @@ public class FlatPlayerController : MonoBehaviour
         //if the player pressed a new direction
         if(pressed)
         {
-            UpdateDestination();
+            //UpdateDestination();
         }
     }
     
@@ -93,18 +97,18 @@ public class FlatPlayerController : MonoBehaviour
         Vector2 newDirection = new Vector2(horizontal, vertical);
 
         //if newly held direction for horizontal movement
-        if (horizontal != 0 && horizontal != lastDirection.x)
+        if (horizontal != 0 && horizontal != direction.x)
         {
             //newly held direction
-            lastDirection = Vector2Int.right * horizontal;
+            direction = Vector2Int.right * horizontal;
             pressed = true;
         }
 
         //if newly held direction for vertical movement
-        if (vertical != 0 && vertical != lastDirection.y)
+        if (vertical != 0 && vertical != direction.y)
         {
             //newly held direction
-            lastDirection = Vector2Int.up * vertical;
+            direction = Vector2Int.up * vertical;
             pressed = true;
         }
 
@@ -122,6 +126,7 @@ public class FlatPlayerController : MonoBehaviour
         Vector2 worldSpace = new Vector2(transform.position.x,
                                          transform.position.y);
 
+        Vector3 destination = targetNode.GetPosition();
 
         float distance = Vector2.Distance(worldSpace, destination);
 
@@ -129,8 +134,6 @@ public class FlatPlayerController : MonoBehaviour
 
         if (distance < 0.1f)
         {
-            lastPosition = destination;
-
             UpdateDestination();
         }
     }
@@ -155,13 +158,15 @@ public class FlatPlayerController : MonoBehaviour
     /// </summary>
     private void UpdateDestination()
     {
-        //get new tile position
-        Vector3 newDestination = GetTilePosition(destination);
+        Node newTarget = targetNode.GetNeighbor(direction);
 
-        //if the new destination isn't out of bounds
-        if (newDestination != Vector3.zero)
+        Debug.Log("destination change: Old: " + targetNode.GetPosition() + ", New: " + (newTarget == null ? "Null" : newTarget.GetPosition()));
+
+        lastNode = targetNode;
+
+        if (newTarget != null)
         {
-            destination = newDestination;
+            targetNode = targetNode.GetNeighbor(direction);
         }
     }
 
@@ -170,5 +175,5 @@ public class FlatPlayerController : MonoBehaviour
     // ================================================================ //
     // ======================= Public Functions ======================= //
     // ================================================================ //
-    */
+
 }
