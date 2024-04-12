@@ -6,14 +6,20 @@ using UnityEngine.UI;
 public class SpeedButton : MonoBehaviour
 {
     [SerializeField]
-    private Button thisB;
+    private Button speedUp;
+    [SerializeField]
+    private Button nextRound;
+
     // Start is called before the first frame update
     void Start()
     {
         // find game manager
         GameManager g = GameObject.FindWithTag("Game Manager").GetComponent<GameManager>();
-        thisB.onClick.AddListener(
+        speedUp.onClick.AddListener(
             g.MayUpgradePlayerSpeed
+            );
+        nextRound.onClick.AddListener(
+            g.NextRoundGame
             );
     }
 

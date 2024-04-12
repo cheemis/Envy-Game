@@ -153,6 +153,13 @@ public class GraphManager : MonoBehaviour
             // remove
             pellets.Remove(position);
 
+            // if the pellets is empty, we can end the game and go to the upgrading page.
+            if (pellets.Count < 140) //hack 40 for debugging
+            {
+                GameManager.Instance.FinishCurrentGame();
+                return;
+            }
+
             Destroy(p.gameObject);
         }
     }

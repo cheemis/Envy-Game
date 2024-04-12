@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Our Assets/Scenes/Nicholas/2D testing.unity
+    guid: ab67eccc48b705b47b9e97fa1d38722a
+  - enabled: 1
+    path: Assets/Our Assets/Scenes/Upgrading.unity
+    guid: 8949a6a7df589014cbc790c3af403d65
   m_configObjects: {}

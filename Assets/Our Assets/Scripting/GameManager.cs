@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class GameManager : MonoBehaviour
@@ -17,6 +18,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private float playerSpeed = 10;
+
+    [SerializeField]
+    private Text moneyText;
 
 
 
@@ -59,7 +63,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(playerMoney);
+        moneyText.text = "Money: " + playerMoney;
     }
 
     // Check player money and upgrade fee for upgrade speed
@@ -91,6 +95,16 @@ public class GameManager : MonoBehaviour
         playerMoney += addMoney;
     }
 
+    public void FinishCurrentGame()
+    {
+        // swith to the upgrading scene
+        SceneManager.LoadScene(1);
+    }
+
+    public void NextRoundGame()
+    {
+        SceneManager.LoadScene(0);
+    }
 
 
 
