@@ -21,6 +21,10 @@ public class GraphManager : MonoBehaviour
     [SerializeField]
     private GameObject firstNode;
 
+    private Dictionary<Vector2, Pellet> pellets = new Dictionary<Vector2, Pellet>();
+    [SerializeField]
+    GameObject pelletPrefab;
+
     //tilemap variables
     public Tilemap tilemap;
     public Sprite outOfBoundsSprite;
@@ -57,8 +61,11 @@ public class GraphManager : MonoBehaviour
         {
             Node currentNode = currentNodes.Dequeue();
 
+            GameObject newPellet = Instantiate(pelletPrefab, currentNode.GetPosition(), pelletPrefab.transform.rotation);
+            pellets.Add(currentNode.GetPosition(), newPellet.GetComponent<Pellet>());
+
             //see if neighbors are valid
-            for(int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 Vector3 potentialNeighbor = GetTilePosition(currentNode.GetPosition() + directions[i]);
 
