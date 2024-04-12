@@ -167,10 +167,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65576c3cb886ba542a4b081e2fe0b871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nodePrefab: {fileID: 6267109333931194596, guid: b1c1f90c8284c57459c68e57cb30e58d, type: 3}
+  pelletPrefab: {fileID: 2062845817367682069, guid: 34533af7f1e4d034694a4882f0566602, type: 3}
+  firstNode: {fileID: 787372159}
   tilemap: {fileID: 1613319987}
   outOfBoundsSprite: {fileID: -999095314, guid: 5221cd0709b782d499ad853edba21c6c, type: 3}
-  node: {fileID: 6267109333931194596, guid: b1c1f90c8284c57459c68e57cb30e58d, type: 3}
-  firstNode: {fileID: 787372159}
 --- !u!1 &685543037
 GameObject:
   m_ObjectHideFlags: 0
@@ -11746,12 +11747,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c98ab6e4e7ef224ba4907c4d4b46965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 1613319987}
-  outOfBoundsSprite: {fileID: -999095314, guid: 5221cd0709b782d499ad853edba21c6c, type: 3}
-  speed: 8
-  lastDirection: {x: 0, y: 0}
-  lastPosition: {x: 0, y: 0}
-  destination: {x: 0, y: 0}
 --- !u!1001 &6843196522209468068
 PrefabInstance:
   m_ObjectHideFlags: 0
