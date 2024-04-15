@@ -56,7 +56,7 @@ public class Node : MonoBehaviour
         return position;
     }
 
-    
+    /*
     void OnDrawGizmos()
     {
         Vector3 currPos = transform.position;
@@ -74,4 +74,5 @@ public class Node : MonoBehaviour
             }
         }
     }
+    */
 }

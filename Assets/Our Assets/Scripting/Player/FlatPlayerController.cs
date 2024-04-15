@@ -23,7 +23,10 @@ public class FlatPlayerController : MonoBehaviour
     [SerializeField]
     private float speed = 10;
     [SerializeField]
-    private Vector2Int direction = new Vector2Int(0,0);
+    private Vector2Int currentDirection = new Vector2Int(0,0);
+    [SerializeField]
+    private Vector2Int lastDirection = new Vector2Int(0,0);
+
     
 
 
@@ -97,21 +100,20 @@ public class FlatPlayerController : MonoBehaviour
         //convert to int
         int horizontal = hor == 0 ? 0 : (int)Mathf.Sign(hor);
         int vertical = vert == 0 ? 0 : (int)Mathf.Sign(vert);
-        Vector2 newDirection = new Vector2(horizontal, vertical);
 
         //if newly held direction for horizontal movement
-        if (horizontal != 0 && horizontal != direction.x)
+        if (horizontal != 0 && horizontal != currentDirection.x)
         {
             //newly held direction
-            direction = Vector2Int.right * horizontal;
+            currentDirection = Vector2Int.right * horizontal;
             pressed = true;
         }
 
         //if newly held direction for vertical movement
-        if (vertical != 0 && vertical != direction.y)
+        if (vertical != 0 && vertical != currentDirection.y)
         {
             //newly held direction
-            direction = Vector2Int.up * vertical;
+            currentDirection = Vector2Int.up * vertical;
             pressed = true;
         }
 
@@ -169,16 +171,28 @@ public class FlatPlayerController : MonoBehaviour
     /// </summary>
     private void UpdateDestination()
     {
-        Node newTarget = targetNode.GetNeighbor(direction);
+        Node newTarget = targetNode.GetNeighbor(currentDirection);
 
-        Debug.Log("destination change: Old: " + targetNode.GetPosition() + ", New: " + (newTarget == null ? "Null" : newTarget.GetPosition()));
-
+        //Debug.Log("destination change: Old: " + targetNode.GetPosition() + ", New: " + (newTarget == null ? "Null" : newTarget.GetPosition()));
         lastNode = targetNode;
 
+        //if the new direction worked
         if (newTarget != null)
         {
-            targetNode = targetNode.GetNeighbor(direction);
+            lastDirection = currentDirection;
+            targetNode = targetNode.GetNeighbor(currentDirection);
+            return;
         }
+
+
+        //use the old direction
+        newTarget = targetNode.GetNeighbor(lastDirection);
+        if (newTarget != null)
+        {
+            targetNode = targetNode.GetNeighbor(lastDirection);
+            return;
+        }
+
     }
 
 

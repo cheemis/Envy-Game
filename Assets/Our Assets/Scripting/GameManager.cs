@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
     private bool playerWon = false;
 
 
-
     private void Awake()
     {
         if (Instance == null)
@@ -114,7 +113,26 @@ public class GameManager : MonoBehaviour
     {
         playerWon = playerMoney > enemyMoney ? true : false;
         // swith to the upgrading scene
-        SceneManager.LoadScene(1);
+
+        GameObject winnerScreen = GameObject.FindGameObjectWithTag("Winner Screen");
+        GameObject gameScreen = GameObject.FindGameObjectWithTag("Game Screen");
+
+        //if a winner screen exists
+        if ( winnerScreen != null && gameScreen != null)
+        {
+            gameScreen.SetActive(false);
+
+            //enemy won
+            winnerScreen.transform.GetChild(winnerScreen.transform.childCount - 1).gameObject.SetActive(playerWon);
+
+            //player won
+            winnerScreen.transform.GetChild(winnerScreen.transform.childCount - 2).gameObject.SetActive(!playerWon);
+        }
+        //else, just go to game screen
+        else
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 
     public void NextRoundGame()
