@@ -53,6 +53,11 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.Instance.IsGameStart())
+        {
+            return;
+        }
+
         if (knockBackTime <= 0)
         {
             MoveCharacter();

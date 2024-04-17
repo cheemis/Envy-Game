@@ -8,6 +8,8 @@ TagManager:
   - Game Screen
   - Game Manager
   - Enemy Player
+  - CountDown
+  - CountDownText
   layers:
   - Default
   - TransparentFX

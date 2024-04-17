@@ -55,6 +55,12 @@ public class FlatPlayerController : MonoBehaviour
     //used for recieving input from the player
     void Update()
     {
+
+        if (!GameManager.Instance.IsGameStart())
+        {
+            return;
+        }
+
         bool pressed = ReadInput();
 
         //if the player pressed a new direction

@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private bool playerWon = false;
 
+    private bool gameStart = false;
+
 
     private void Awake()
     {
@@ -53,7 +55,46 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        gameStart = false;
 
+        // if the current scene is main scene, lock for 3 sec and then play.
+        if (scene.buildIndex == 0)
+        {
+            //start to coutndown
+            StartCoroutine(TimerCoroutine());
+        }
+
+    }
+
+    private IEnumerator TimerCoroutine()
+    {
+        Text countdownText = GameObject.FindGameObjectWithTag("CountDownText").GetComponent<Text>();
+        Canvas countdown = GameObject.FindGameObjectWithTag("CountDown").GetComponent<Canvas>();
+        countdown.enabled = true;
+        for (int secondsPassed = 0; secondsPassed <= 3; secondsPassed++)
+        {
+            //set the text
+            int showText = 3 - secondsPassed;
+            if (showText != 0)
+            {
+                countdownText.text = showText.ToString();
+            }
+            else
+            {
+                countdownText.text = "Go!";
+            }
+            
+            yield return new WaitForSeconds(1);
+        }
+
+        // After 3 seconds, set the boolean to true
+        gameStart = true;
+        countdown.enabled = false;
+    }
+
+    public bool IsGameStart()
+    {
+        return gameStart;
     }
 
     private void OnDestroy()
