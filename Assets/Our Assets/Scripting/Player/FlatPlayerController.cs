@@ -14,9 +14,7 @@ public class FlatPlayerController : MonoBehaviour
     //Grid
     [SerializeField]
     private GraphManager graphManager;
-    [SerializeField]
     private Node lastNode;
-    [SerializeField]
     private Node targetNode;
 
     //movement variables
@@ -26,8 +24,10 @@ public class FlatPlayerController : MonoBehaviour
     private Vector2Int currentDirection = new Vector2Int(0,0);
     [SerializeField]
     private Vector2Int lastDirection = new Vector2Int(0,0);
+    [SerializeField]
+    private float knockback = -2;
+    private float knockBackTime = 0;
 
-    
 
 
 
@@ -45,8 +45,9 @@ public class FlatPlayerController : MonoBehaviour
         lastNode = graphManager.GetNode(tilePosition);
         targetNode = lastNode;
 
-        //update the player speed by checking the game manager
+        //update the player speed/knock back by checking the game manager
         speed = GameManager.Instance.GetPlayerSpeed();
+        knockback = GameManager.Instance.GetPlayerKnockBack();
     }
     
 
@@ -61,16 +62,47 @@ public class FlatPlayerController : MonoBehaviour
         {
             //UpdateDestination();
         }
+
+        if (knockBackTime <= 0)
+        {
+            MoveCharacter();
+        }
+        else
+        {
+            knockBackTime -= Time.deltaTime;
+        }
     }
-    
 
 
-    //used for updating the position of the player
-    private void FixedUpdate()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        MoveCharacter();
-    }
+        Debug.Log("collision 2D with " + collision.gameObject.name);
 
+        if (collision.tag == "Enemy Player")
+        {
+            EnemyAI enemy = collision.GetComponent<EnemyAI>();
+
+            Debug.Log("bumped into enemy!");
+
+            //if no one is already knocked back
+            if (!GetKnockedBack() && !enemy.GetIsKnockBacked())
+            {
+                //apply slowing
+                if (knockback < 0)
+                {
+                    //knock back player
+                    knockBackTime = -knockback;
+                    Debug.Log("knocked back player");
+                }
+                else
+                {
+                    //knock back enemy
+                    enemy.KnockBackAI(knockback);
+                    Debug.Log("knocked back enemy");
+                }
+            }
+        }
+    }
 
 
 
@@ -135,7 +167,7 @@ public class FlatPlayerController : MonoBehaviour
 
         float distance = Vector2.Distance(worldSpace, destination);
 
-        transform.position = Vector3.Lerp(worldSpace, destination, speed / (distance * 100)); // MAGIC NUMBER
+        transform.position = Vector3.Lerp(worldSpace, destination, (speed / (distance * 10)) * Time.deltaTime); // MAGIC NUMBER
 
         if (distance < 0.1f)
         {
@@ -145,24 +177,6 @@ public class FlatPlayerController : MonoBehaviour
             UpdateDestination();
         }
     }
-
-    public void AddPlayerSpeed(float addSpeed)
-    {
-        speed += addSpeed;
-    }
-
-
-
-    /// <summary>
-    /// This function gets the next tile that the player should visit.
-    /// This function also checks if the next tile is out of bounds
-    /// </summary>
-    /// 
-    /// <returns>
-    /// The world position of a valid tile or Vector3.zero for invalid tiles
-    /// </returns>
-
-
 
 
 
@@ -200,5 +214,20 @@ public class FlatPlayerController : MonoBehaviour
     // ================================================================ //
     // ======================= Public Functions ======================= //
     // ================================================================ //
+
+
+    /// <summary>
+    /// This function adds speed to the player's base speed
+    /// </summary>
+    public void AddPlayerSpeed(float addSpeed)
+    {
+        speed += addSpeed;
+    }
+
+    public bool GetKnockedBack()
+    {
+        return knockBackTime > 0;
+    }
+
 
 }

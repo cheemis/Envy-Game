@@ -4,9 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Game Manager
   - Winner Screen
   - Game Screen
+  - Game Manager
+  - Enemy Player
   layers:
   - Default
   - TransparentFX

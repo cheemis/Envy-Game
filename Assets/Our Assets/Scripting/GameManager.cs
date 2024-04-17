@@ -17,9 +17,13 @@ public class GameManager : MonoBehaviour
     private int currentUpgradeSpeedFee = 10;
     [SerializeField]
     private float currentSpeedUpgradeValue = 5;
+    [SerializeField]
+    private float currentKnockBackUpgradeValue = .5f;
 
     [SerializeField]
     private float playerSpeed = 10;
+    [SerializeField]
+    private float playerKnockBack = -2;
 
     [SerializeField]
     private Text moneyText;
@@ -92,9 +96,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Check player money and upgrade fee for upgrade speed
+    public void MayUpgradePlayerKnockBack()
+    {
+        if (playerMoney >= currentUpgradeSpeedFee)
+        {
+            playerMoney -= currentUpgradeSpeedFee;
+            moneyText.text = "My Money: " + playerMoney;
+            playerKnockBack += currentKnockBackUpgradeValue;
+        }
+        else
+        {
+            Debug.Log("not enough money");
+        }
+    }
+
     public float GetPlayerSpeed()
     {
         return playerSpeed;
+    }
+
+    public float GetPlayerKnockBack()
+    {
+        return playerKnockBack;
     }
 
     public void AddPlayerMoney(int addMoney)

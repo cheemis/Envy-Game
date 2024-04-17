@@ -6,6 +6,11 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
+
+    // ================================================================ //
+    // =========================== Variables ========================== //
+    // ================================================================ //
+
     //Grid
     [SerializeField]
     private GraphManager graphManager;
@@ -18,7 +23,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField]
     private float speed = 10;
     [SerializeField]
-    private Vector2Int direction = new Vector2Int(0, 0);
+    private float knockBackTime = 0;
 
     //Pathing Variables
     public Queue<Node> path = new Queue<Node>();
@@ -46,16 +51,22 @@ public class EnemyAI : MonoBehaviour
         InitializeEnemy();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (knockBackTime <= 0)
+        {
+            MoveCharacter();
+        }
+        else
+        {
+            knockBackTime -= Time.deltaTime;
+        }
     }
 
-    private void FixedUpdate()
-    {
-        MoveCharacter();
-    }
+
+    // ================================================================ //
+    // ======================= Private Functions ====================== //
+    // ================================================================ //
 
     private void InitializeEnemy()
     {
@@ -80,7 +91,7 @@ public class EnemyAI : MonoBehaviour
 
         float distance = Vector2.Distance(worldSpace, destination);
 
-        transform.position = Vector3.Lerp(worldSpace, destination, speed / (distance * 100)); // MAGIC NUMBER
+        transform.position = Vector3.Lerp(worldSpace, destination, (speed / (distance * 10)) * Time.deltaTime); // MAGIC NUMBER
 
         if (distance < 0.1f)
         {
@@ -100,7 +111,6 @@ public class EnemyAI : MonoBehaviour
         //clear visited from previous call
         visited.Clear();
 
-        Debug.Log("targetting node: " +  newTarget.GetPosition());
         Stack<Node> stack = AStarSearch(destinationNode, newTarget);
 
         //couldn't find path
@@ -112,7 +122,6 @@ public class EnemyAI : MonoBehaviour
         while(stack.Count > 0)
         {
             Node popped = stack.Pop();
-            Debug.Log("adding " + popped.GetPosition() + " to the path");
             path.Enqueue(popped);
         }
     }
@@ -175,10 +184,9 @@ public class EnemyAI : MonoBehaviour
 
 
         int nodesSearched = 0;
-        int loops = 300;
 
         //while the open queue is not empty
-        while(openQueue.Count() > 0 && loops > 0)
+        while(openQueue.Count() > 0)
         {
             Node currentNode = openQueue.Dequeue();
 
@@ -187,7 +195,6 @@ public class EnemyAI : MonoBehaviour
             if(currentNode == lookingFor)
             {
                 //return the reconstructed path
-                Debug.Log("found the target!");
                 return ConstructPath(cameFrom, currentNode);
             }
 
@@ -212,7 +219,6 @@ public class EnemyAI : MonoBehaviour
                     gScore.TryGetValue(neighborNode.GetPosition(), out oldNeighborScore);
                     oldNeighborScore = oldNeighborScore == 0 ? float.PositiveInfinity : oldNeighborScore;
 
-                    //Debug.Log("neighborGScore (" + neighborGScore + ") < oldNeighborScore(" + oldNeighborScore + ")?");
                     if (neighborGScore < oldNeighborScore)
                     {
                         Vector2 neighborPosition = neighborNode.GetPosition();
@@ -228,15 +234,12 @@ public class EnemyAI : MonoBehaviour
                         // DO F SCORE STUFF HERE LATER
 
 
-                        //Debug.Log("open queue contain " + neighborNode + "? " + openQueue.Contains(neighborNode));
                         //if this node isn't queued to be search, queue it
                         if (!openQueue.Contains(neighborNode)) openQueue.Insert(neighborNode, neighborGScore);
                     }
                 }
             }
-            loops--;
         }
-        Debug.Log("couldn't find path from " + startNode.GetPosition() + "to " + lookingFor.GetPosition() + ". Nodes searched: " + nodesSearched);
         //couldn't find a path
         return null;
     }
@@ -249,9 +252,7 @@ public class EnemyAI : MonoBehaviour
 
         returnStack.Push(current);
 
-        int looptwo = 200;
-
-        while(current != null && cameFrom.ContainsKey(current.GetPosition()) && looptwo > 0)
+        while(current != null && cameFrom.ContainsKey(current.GetPosition()))
         {
             cameFrom.TryGetValue(current.GetPosition(), out current);
             returnStack.Push(current);
@@ -264,8 +265,6 @@ public class EnemyAI : MonoBehaviour
             {
                 exists.Add(current.GetPosition());
             }
-
-            looptwo--;
         }
 
 
@@ -289,7 +288,6 @@ public class EnemyAI : MonoBehaviour
         {
             lastNode = destinationNode;
             destinationNode = path.Dequeue();
-            Debug.Log("destination Node: " + destinationNode.GetPosition());
         }
         else
         {
@@ -302,7 +300,6 @@ public class EnemyAI : MonoBehaviour
             if(path.TryDequeue(out newDestination))
             {
                 destinationNode = newDestination;
-                Debug.Log("first destination Node: " + destinationNode.GetPosition());
             }
             //couldn't find a path -- THIS SHOULD NEVER HAPPEN
             else
@@ -310,9 +307,22 @@ public class EnemyAI : MonoBehaviour
                 Debug.Log("FAILED DEQUEUE");
                 InitializeEnemy();
             }
-
-            
         }
     }
+
+    // ================================================================ //
+    // ======================= Public Functions ======================= //
+    // ================================================================ //
+
+    public void KnockBackAI(float newKnockBackTime)
+    {
+        knockBackTime = newKnockBackTime;
+    }
+
+    public bool GetIsKnockBacked()
+    {
+        return knockBackTime > 0;
+    }
+
 
 }

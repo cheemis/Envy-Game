@@ -36,6 +36,12 @@ public class GraphManager : MonoBehaviour
 
     private Vector3[] directions = { Vector3.up, Vector3.down, Vector3.right, Vector3.left };
 
+
+
+    // ================================================================ //
+    // =================== Built In Unity Functions =================== //
+    // ================================================================ //
+
     private void Awake()
     {
         //get the size of the tiles in the tilemap
@@ -47,6 +53,13 @@ public class GraphManager : MonoBehaviour
         CreateGraph();
 
     }
+
+
+
+    // ================================================================ //
+    // ======================= Private Functions ====================== //
+    // ================================================================ //
+
 
     private void CreateGraph()
     {
@@ -123,12 +136,20 @@ public class GraphManager : MonoBehaviour
         return Vector3.zero;
     }
 
+
+
+    // ================================================================ //
+    // ======================= Public Functions ======================= //
+    // ================================================================ //
+
+
     public Vector3 GetNodePosition(Vector3 worldPosition)
     {
         Vector3 tilePosition = GetTilePosition(worldPosition);
 
         return tilePosition;
     }
+
 
     public Node GetNode(Vector3 worldPosition)
     {
@@ -142,6 +163,7 @@ public class GraphManager : MonoBehaviour
 
         return null;
     }
+
 
     public void DeleteThePelletOnNode(Vector2 position, bool isPlayer)
     {
@@ -173,6 +195,7 @@ public class GraphManager : MonoBehaviour
             Destroy(p.gameObject);
         }
     }
+
 
     public Node GetRandomNode()
     {
