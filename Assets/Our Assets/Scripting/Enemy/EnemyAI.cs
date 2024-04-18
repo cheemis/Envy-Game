@@ -109,7 +109,8 @@ public class EnemyAI : MonoBehaviour
     private void CreatePath()
     {
         //choose a random target in graph
-        Node newTarget = graphManager.GetRandomNode();
+        //Node newTarget = graphManager.GetRandomNode();
+        Node newTarget = graphManager.GetNearestNode(lastNode);
 
         if (newTarget == null) return; //usually won't get this case
 
@@ -298,6 +299,7 @@ public class EnemyAI : MonoBehaviour
         {
             Node newDestination;
 
+            lastNode = destinationNode;
             //generate new path
             CreatePath();
 
