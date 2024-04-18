@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static UnityEngine.GraphicsBuffer;
@@ -209,6 +211,65 @@ public class GraphManager : MonoBehaviour
             return pelletNode;
         }
         return null;
+    }
+
+    //Use BFS to search for Node has pellet. Start from current position
+    public Node GetNearestNode(Node currentNode)
+    {
+        if (pellets.Count == 0) return null;
+
+        Queue<Node> queue = new Queue<Node>();
+
+        // defines the node has been to 
+        HashSet<Vector2> been = new HashSet<Vector2>();
+
+        queue.Enqueue(currentNode);
+
+        while(queue.Count != 0)
+        {
+            Node temp = queue.Dequeue();
+
+            if (pellets.ContainsKey(temp.GetPosition()))
+            {
+                return temp;
+            }
+
+            been.Add(temp.GetPosition());
+
+
+            for (int i = 0; i < 4; i++)
+            {
+                Node child = temp.GetNeighbor(i);
+
+                if (child == null) continue;
+
+                if(been.Contains(child.GetPosition()))
+                {
+                    continue;
+                }
+
+                queue.Enqueue(child);
+            }
+
+
+        }
+
+        Debug.Log("No pellet in the game");
+
+
+        return null;
+    }
+
+    public Node GetRandomWithNearestNode(Node currentNode)
+    {
+        int randomNumber = Random.Range(0, 10);
+
+        if (randomNumber <= 8)
+        {
+            //use nearest node
+            return GetNearestNode(currentNode);
+        }
+        return GetRandomNode();
     }
 
 }
