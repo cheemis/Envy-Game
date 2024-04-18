@@ -110,7 +110,8 @@ public class EnemyAI : MonoBehaviour
     {
         //choose a random target in graph
         //Node newTarget = graphManager.GetRandomNode();
-        Node newTarget = graphManager.GetNearestNode(lastNode);
+        //Node newTarget = graphManager.GetNearestNode(lastNode);
+        Node newTarget = graphManager.GetRandomWithNearestNode(lastNode);
 
         if (newTarget == null) return; //usually won't get this case
 

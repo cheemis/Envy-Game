@@ -260,5 +260,17 @@ public class GraphManager : MonoBehaviour
         return null;
     }
 
+    public Node GetRandomWithNearestNode(Node currentNode)
+    {
+        int randomNumber = Random.Range(0, 10);
+
+        if (randomNumber <= 8)
+        {
+            //use nearest node
+            return GetNearestNode(currentNode);
+        }
+        return GetRandomNode();
+    }
+
 }
 
