@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3043a6299e3642a42b3a6291bd7b5ce0
+guid: 2727db1732ca26b4ba78ab3102efe108
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -32,7 +32,7 @@ ScriptedImporter:
     sRGBTexture: 1
     spriteMode: 2
     spriteExtrude: 1
-    spriteMeshType: 1
+    spriteMeshType: 0
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
     spritePixelsToUnits: 100
@@ -71,7 +71,7 @@ ScriptedImporter:
     textureFormatSet: 0
     applyGammaDecoding: 0
   previousAsepriteImporterSettings:
-    fileImportMode: 1
+    fileImportMode: 0
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
@@ -84,7 +84,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   asepriteImporterSettings:
-    fileImportMode: 1
+    fileImportMode: 0
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 0
+  platformSettingsDirtyTick: 638490339832759454
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Orb
+  - name: Box-9-slliced
     originalName: 
-    pivot: {x: 0.4814815, y: -0.13725491}
+    pivot: {x: 0.48, y: -0.071428575}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 54
-      height: 51
-    spriteID: fa02e3c796c011f42b09387fc63b7936
+      width: 25
+      height: 14
+    spriteID: 6886339e45da78d4db45bb07c621256f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -141,27 +141,71 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  spriteSheetImportData: []
+  spriteSheetImportData:
+  - name: Box-9-slliced_0
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 4, y: 4, z: 4, w: 4}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 25
+      height: 14
+    spriteID: e891fc62a75cf454a962a16224c0b24b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
   asepriteLayers:
   - layerIndex: 0
-    guid: -1037615137
-    name: Orb
+    guid: -850093616
+    name: Box-9-slliced
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Orb
+    - name: Box-9-slliced
       frameIndex: 0
       cellRect:
-        x: 6
-        y: 7
-        width: 54
-        height: 51
-      spriteId: fa02e3c796c011f42b09387fc63b7936
+        x: 4
+        y: 1
+        width: 25
+        height: 14
+      spriteId: 6886339e45da78d4db45bb07c621256f
     linkedCells: []
     parentIndex: -1
-  platformSettings: []
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 64, y: 64}
+  canvasSize: {x: 32, y: 16}

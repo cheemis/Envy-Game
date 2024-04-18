@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3043a6299e3642a42b3a6291bd7b5ce0
+guid: ee0d75e25a4f6884c8ed4142c7fa75bc
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Orb
+  - name: ShopBackground
     originalName: 
-    pivot: {x: 0.4814815, y: -0.13725491}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 54
-      height: 51
-    spriteID: fa02e3c796c011f42b09387fc63b7936
+      width: 192
+      height: 108
+    spriteID: 4ddef799d7369db4fb9d86f82915cdb2
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -144,24 +144,24 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -1037615137
-    name: Orb
+    guid: 2084688250
+    name: ShopBackground
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Orb
+    - name: ShopBackground
       frameIndex: 0
       cellRect:
-        x: 6
-        y: 7
-        width: 54
-        height: 51
-      spriteId: fa02e3c796c011f42b09387fc63b7936
+        x: 0
+        y: 0
+        width: 192
+        height: 108
+      spriteId: 4ddef799d7369db4fb9d86f82915cdb2
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 64, y: 64}
+  canvasSize: {x: 192, y: 108}
