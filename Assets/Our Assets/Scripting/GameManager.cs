@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
         gameStart = false;
 
         // if the current scene is main scene, lock for 3 sec and then play.
-        if (scene.buildIndex == 0)
+        if (scene.buildIndex == 1)
         {
             //start to coutndown
             StartCoroutine(TimerCoroutine());
@@ -189,14 +189,14 @@ public class GameManager : MonoBehaviour
 
             //enemy won
             winnerScreen.transform.GetChild(winnerScreen.transform.childCount - 1).gameObject.SetActive(playerWon);
-
+            
             //player won
             winnerScreen.transform.GetChild(winnerScreen.transform.childCount - 2).gameObject.SetActive(!playerWon);
         }
         //else, just go to game screen
         else
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
         }
     }
 
@@ -204,7 +204,7 @@ public class GameManager : MonoBehaviour
     {
         playerMoney = 0;
         enemyMoney = 0;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public bool GetPlayerWon()

@@ -10,7 +10,7 @@ public class GameSwitch : MonoBehaviour
 
     public void LoadBuyScreen()
     {
-        SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadSceneAsync(2);
     }
 
 

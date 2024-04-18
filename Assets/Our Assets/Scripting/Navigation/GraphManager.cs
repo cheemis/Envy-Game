@@ -38,6 +38,8 @@ public class GraphManager : MonoBehaviour
 
     private Vector3[] directions = { Vector3.up, Vector3.down, Vector3.right, Vector3.left };
 
+    public int nearestNodePercentage = 50;
+
 
 
     // ================================================================ //
@@ -250,8 +252,6 @@ public class GraphManager : MonoBehaviour
 
                 queue.Enqueue(child);
             }
-
-
         }
 
         Debug.Log("No pellet in the game");
@@ -262,9 +262,9 @@ public class GraphManager : MonoBehaviour
 
     public Node GetRandomWithNearestNode(Node currentNode)
     {
-        int randomNumber = Random.Range(0, 10);
+        int randomNumber = Random.Range(0, 100);
 
-        if (randomNumber <= 8)
+        if (randomNumber <= nearestNodePercentage)
         {
             //use nearest node
             return GetNearestNode(currentNode);

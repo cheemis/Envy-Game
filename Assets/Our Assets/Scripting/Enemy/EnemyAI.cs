@@ -108,9 +108,6 @@ public class EnemyAI : MonoBehaviour
 
     private void CreatePath()
     {
-        //choose a random target in graph
-        //Node newTarget = graphManager.GetRandomNode();
-        //Node newTarget = graphManager.GetNearestNode(lastNode);
         Node newTarget = graphManager.GetRandomWithNearestNode(lastNode);
 
         if (newTarget == null) return; //usually won't get this case
@@ -179,10 +176,6 @@ public class EnemyAI : MonoBehaviour
         Dictionary<Vector2, float> gScore = new Dictionary<Vector2 , float>();
         gScore.Add(startNode.GetPosition(), Distance(startNode, lookingFor)); //initial space has a score of zero
 
-        //set up fScores map
-        //Dictionary<Vector2, float> fScore = new Dictionary<Vector2, float>();
-        //fScore.Add(currentNode.GetPosition(), distance(currentNode, lookingFor)); //initial space has a score of zero
-
         //set up queue prioritized search
         PriorityQueue openQueue = new PriorityQueue();
         float startScore = float.PositiveInfinity;
@@ -237,9 +230,6 @@ public class EnemyAI : MonoBehaviour
                         //set the new g score
                         if (gScore.ContainsKey(neighborPosition)) { gScore.Remove(neighborPosition); }
                         gScore.Add(neighborPosition, neighborGScore);
-
-                        // DO F SCORE STUFF HERE LATER
-
 
                         //if this node isn't queued to be search, queue it
                         if (!openQueue.Contains(neighborNode)) openQueue.Insert(neighborNode, neighborGScore);
