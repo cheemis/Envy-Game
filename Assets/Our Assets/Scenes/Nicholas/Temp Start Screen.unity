@@ -473,8 +473,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 3761100316177847772, guid: 2f273671b4af26f4289dfcd01b33db63, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -482,7 +482,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.2
 --- !u!114 &649237930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -700,8 +700,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 3761100316177847772, guid: 2f273671b4af26f4289dfcd01b33db63, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -709,7 +709,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.2
 --- !u!222 &707361603
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -833,8 +833,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 3761100316177847772, guid: 2f273671b4af26f4289dfcd01b33db63, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -842,7 +842,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.2
 --- !u!222 &830530923
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1165,8 +1165,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 3761100316177847772, guid: 2f273671b4af26f4289dfcd01b33db63, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1174,7 +1174,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.2
 --- !u!222 &1450526604
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1613,14 +1613,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -2733808411786312247, guid: ff1289624403da546834398bddfd3e31, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1699,12 +1699,12 @@ MonoBehaviour:
 
     CMPM 244-01</align>
 
-    
 
-    This
-    demo includes a path-finding AI that was built by Nicholas Nolasco and Zongheng
-    Cao. The demo includes an adversarial AI that paths to either the nearest pellet
-    or a random pellet using the A-Star search algorithm. We designed the AI to traverse
+
+    This demo
+    includes a path-finding AI that was built by Nicholas Nolasco and Zongheng Cao.
+    The demo includes an adversarial AI that paths to either the nearest pellet or
+    a random pellet using the A-Star search algorithm. We designed the AI to traverse
     any tilemap that our level designers draw using a Unity tilemap by constructing
     a graph on top of the tile map. The whole game is being developed by Nicholas
     Nolasco, Zongheng Cao, Hyo Kim, Bo Hu, and Gabriel Gallegos.'
