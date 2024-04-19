@@ -56,7 +56,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private string enemyTextString = "P2 Score: ";
 
-
+    // CoverImage and Scrolling text after player wins
+    [SerializeField] private Image fadeImage;
+    [SerializeField] private TextMeshProUGUI scrollingText;
 
     private void Awake()
     {
@@ -154,7 +156,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // Debug winning 
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            playerMoney += enemyMoney + 1;
+            playerWon = true;
+            FinishCurrentGame();
+        }
     }
 
     private void PlaySFX(AudioClip clip)
@@ -254,11 +262,15 @@ public class GameManager : MonoBehaviour
             
             //player won
             winnerScreen.transform.GetChild(winnerScreen.transform.childCount - 2).gameObject.SetActive(!playerWon);
+            if (playerWon)
+            {
+                StartCoroutine(PlayWinEffects());
+            }
         }
         //else, just go to game screen
         else
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(2);   
         }
     }
 
@@ -290,6 +302,40 @@ public class GameManager : MonoBehaviour
         return playerWon;
     }
 
+    // Helper functions for fading and text scrolling effects
+    
+    IEnumerator FadeScreen(Color startColor, Color endColor, float duration)
+    {
+        float counter = 0f;
+        while (counter < duration)
+        {
+            counter += Time.deltaTime;
+            fadeImage.color = Color.Lerp(startColor, endColor, counter / duration);
+            yield return null;
+        }
+    }
+    
+    IEnumerator ScrollText(float duration, float scrollSpeed)
+    {
+        float startTime = Time.time;
+        while (Time.time < startTime + duration)
+        {
+            scrollingText.rectTransform.anchoredPosition += new Vector2(0, scrollSpeed * Time.deltaTime);
+            yield return null;
+        }
+    }
 
+    IEnumerator PlayWinEffects()
+    {
+        // Fade to white and then to black
+        yield return StartCoroutine(FadeScreen(Color.clear, Color.white, 1.5f));
+        yield return new WaitForSeconds(0.5f); // A brief pause in white
+        yield return StartCoroutine(FadeScreen(Color.white, Color.black, 2.5f));
+
+        // Show and scroll the winner text
+        yield return StartCoroutine(ScrollText(15f, 50f));
+        SceneManager.LoadScene(0);
+        Destroy(gameObject);
+    }
 
 }
