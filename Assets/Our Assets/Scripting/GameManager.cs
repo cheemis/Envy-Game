@@ -22,8 +22,11 @@ public class GameManager : MonoBehaviour
     private float currentKnockBackUpgradeValue = .5f;
 
     [SerializeField]
-    private float playerSpeed = 10;
+    private float InitialPlayerSpeed = 10;
     [SerializeField]
+    private float InitialPlayerKnockBack = -2;
+
+    private float playerSpeed = 10;
     private float playerKnockBack = -2;
 
     [SerializeField]
@@ -80,6 +83,11 @@ public class GameManager : MonoBehaviour
                 statsObjects.SetActive(false);
             }
 
+            //set default values
+            playerSpeed = InitialPlayerSpeed;
+            playerKnockBack = InitialPlayerKnockBack;
+
+
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -107,7 +115,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator TimerCoroutine()
     {
-        Text countdownText = GameObject.FindGameObjectWithTag("CountDownText").GetComponent<Text>();
+        TextMeshProUGUI countdownText = GameObject.FindGameObjectWithTag("CountDownText").GetComponent<TextMeshProUGUI>();
         Canvas countdown = GameObject.FindGameObjectWithTag("CountDown").GetComponent<Canvas>();
         countdown.enabled = true;
         for (int secondsPassed = 0; secondsPassed <= 3; secondsPassed++)
@@ -327,13 +335,15 @@ public class GameManager : MonoBehaviour
 
     IEnumerator PlayWinEffects()
     {
+        yield return new WaitForSeconds(2);
+
         // Fade to white and then to black
         yield return StartCoroutine(FadeScreen(Color.clear, Color.white, 1.5f));
         yield return new WaitForSeconds(0.5f); // A brief pause in white
         yield return StartCoroutine(FadeScreen(Color.white, Color.black, 2.5f));
 
         // Show and scroll the winner text
-        yield return StartCoroutine(ScrollText(15f, 50f));
+        yield return StartCoroutine(ScrollText(52, 25));
         SceneManager.LoadScene(0);
         Destroy(gameObject);
     }

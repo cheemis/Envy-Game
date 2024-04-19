@@ -7,6 +7,7 @@ public class GameSwitch : MonoBehaviour
 {
     public void LoadBuyScreen()
     {
+        Debug.Log("here");
         if(GameManager.Instance != null)
         {
             GameManager.Instance.LoadUpgradeScene();
