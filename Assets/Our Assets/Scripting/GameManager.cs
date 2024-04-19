@@ -35,12 +35,31 @@ public class GameManager : MonoBehaviour
 
     private bool gameStart = false;
 
+    //sound effect variables
+    public AudioSource audioSource;
+    [SerializeField]
+    private AudioClip countDownSFX;
+    [SerializeField]
+    private AudioClip countDownEndSFX;
+    [SerializeField]
+    private AudioClip confirmSFX;
+
+    //string variables
+    [SerializeField]
+    private string playerTextString = "P1 Score: ";
+    [SerializeField]
+    private string enemyTextString = "P2 Score: ";
+
+
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+            
+            if(audioSource == null) audioSource = GetComponent<AudioSource>();
+
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -78,13 +97,16 @@ public class GameManager : MonoBehaviour
             if (showText != 0)
             {
                 countdownText.text = showText.ToString();
+                PlaySFX(countDownSFX);
             }
             else
             {
                 countdownText.text = "Go!";
+                PlaySFX(countDownEndSFX);
             }
             
             yield return new WaitForSeconds(1);
+            
         }
 
         // After 3 seconds, set the boolean to true
@@ -117,13 +139,22 @@ public class GameManager : MonoBehaviour
         
     }
 
+    private void PlaySFX(AudioClip clip)
+    {
+        if(clip !=null && audioSource != null)
+        {
+            audioSource.clip = clip;
+            audioSource.Play();
+        }
+    }
+
     // Check player money and upgrade fee for upgrade speed
     public void MayUpgradePlayerSpeed()
     {
         if (playerMoney >= currentUpgradeSpeedFee)
         {
             playerMoney -= currentUpgradeSpeedFee;
-            moneyText.text = "My Money: " + playerMoney;
+            moneyText.text = playerTextString + playerMoney;
             //FlatPlayerController player = GameObject.FindWithTag("Player").GetComponent<FlatPlayerController>();
             //player.AddPlayerSpeed(currentSpeedUpgradeValue);
             playerSpeed += currentSpeedUpgradeValue;
@@ -143,7 +174,7 @@ public class GameManager : MonoBehaviour
         if (playerMoney >= currentUpgradeSpeedFee)
         {
             playerMoney -= currentUpgradeSpeedFee;
-            moneyText.text = "My Money: " + playerMoney;
+            moneyText.text = playerTextString + playerMoney;
             playerKnockBack += currentKnockBackUpgradeValue;
         }
         else
@@ -165,13 +196,13 @@ public class GameManager : MonoBehaviour
     public void AddPlayerMoney(int addMoney)
     {
         playerMoney += addMoney;
-        moneyText.text = "My Money: " + playerMoney;
+        moneyText.text = playerTextString + playerMoney;
     }
 
     public void AddEnemyMoney(int addMoney)
     {
         enemyMoney += addMoney;
-        enemyText.text = "Enemy Money: " + enemyMoney;
+        enemyText.text = enemyTextString + enemyMoney;
     }
 
     public void FinishCurrentGame()
@@ -203,7 +234,11 @@ public class GameManager : MonoBehaviour
     public void NextRoundGame()
     {
         playerMoney = 0;
+        moneyText.text = playerTextString + playerMoney;
+
         enemyMoney = 0;
+        enemyText.text = enemyTextString + enemyMoney;
+
         SceneManager.LoadScene(1);
     }
 

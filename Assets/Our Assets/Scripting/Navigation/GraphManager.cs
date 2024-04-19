@@ -40,6 +40,14 @@ public class GraphManager : MonoBehaviour
 
     public int nearestNodePercentage = 50;
 
+    //audio variables
+    private AudioSource playerPelletaudioSource;
+    private AudioSource enemyPelletaudioSource;
+    [SerializeField]
+    private Vector2 playerCollectPitchRange = new Vector2(.95f, 1.05f);
+    [SerializeField]
+    private Vector2 enemyCollectPitchRange= new Vector2(.3f, .4f);
+
 
 
     // ================================================================ //
@@ -51,11 +59,13 @@ public class GraphManager : MonoBehaviour
         //get the size of the tiles in the tilemap
         tileSize = tilemap.cellSize.x;
 
-
         firstNode.transform.position = GetTilePosition(firstNode.transform.position);
 
         CreateGraph();
 
+        //set audio sources
+        playerPelletaudioSource = transform.GetChild(0).GetComponent<AudioSource>();
+        enemyPelletaudioSource = transform.GetChild(1).GetComponent<AudioSource>();
     }
 
 
@@ -141,6 +151,15 @@ public class GraphManager : MonoBehaviour
     }
 
 
+    private void PlaySFX(AudioSource source, Vector2 pitchRange)
+    {
+        if (source != null && !source.isPlaying)
+        {
+            source.pitch = Random.Range(pitchRange.x, pitchRange.y);
+            source.Play();
+        }
+    }
+
 
     // ================================================================ //
     // ======================= Public Functions ======================= //
@@ -180,10 +199,12 @@ public class GraphManager : MonoBehaviour
             if(isPlayer)
             {
                 GameManager.Instance.AddPlayerMoney(p.GetScore());
+                PlaySFX(playerPelletaudioSource, playerCollectPitchRange);
             }
             else
             {
                 GameManager.Instance.AddEnemyMoney(p.GetScore());
+                PlaySFX(enemyPelletaudioSource, enemyCollectPitchRange);
             }
             
             // remove
@@ -193,7 +214,6 @@ public class GraphManager : MonoBehaviour
             if (pellets.Count < 1) //hack 40 for debugging
             {
                 GameManager.Instance.FinishCurrentGame();
-                return;
             }
 
             Destroy(p.gameObject);

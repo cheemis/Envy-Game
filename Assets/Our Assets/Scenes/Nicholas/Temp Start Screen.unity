@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &78542558
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1084,7 +1084,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1365051187
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1699,14 +1699,15 @@ MonoBehaviour:
 
     CMPM 244-01</align>
 
+    
 
-    The end
-    is never the end is never the end is never the end is never the end is never
-    the end is never the end is never the end is never the end is never the end is
-    never the end is never the end is never the end is never the end is never the
-    end is never the end is never the end is never the end is never the end is never
-    the end is never the end is never the end is never the end is never the end is
-    never the end is never the end is never the end'
+    This
+    demo includes a path-finding AI that was built by Nicholas Nolasco and Zongheng
+    Cao. The demo includes an adversarial AI that paths to either the nearest pellet
+    or a random pellet using the A-Star search algorithm. We designed the AI to traverse
+    any tilemap that our level designers draw using a Unity tilemap by constructing
+    a graph on top of the tile map. The whole game is being developed by Nicholas
+    Nolasco, Zongheng Cao, Hyo Kim, Bo Hu, and Gabriel Gallegos.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

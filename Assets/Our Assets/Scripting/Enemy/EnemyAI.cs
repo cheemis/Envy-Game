@@ -25,6 +25,9 @@ public class EnemyAI : MonoBehaviour
     [SerializeField]
     private float knockBackTime = 0;
 
+    //components
+    private Animator anim;
+
     //Pathing Variables
     public Queue<Node> path = new Queue<Node>();
 
@@ -65,6 +68,7 @@ public class EnemyAI : MonoBehaviour
         else
         {
             knockBackTime -= Time.deltaTime;
+            anim.SetFloat("knockBackTime", knockBackTime);
         }
     }
 

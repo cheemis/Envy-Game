@@ -28,6 +28,17 @@ public class FlatPlayerController : MonoBehaviour
     private float knockback = -2;
     private float knockBackTime = 0;
 
+    //components
+    private Animator anim;
+    private AudioSource audioSource;
+
+    //Audio variables
+    [SerializeField]
+    private AudioClip playerKnocked;
+    [SerializeField]
+    private AudioClip enemyKnocked;
+
+
 
 
 
@@ -48,6 +59,9 @@ public class FlatPlayerController : MonoBehaviour
         //update the player speed/knock back by checking the game manager
         speed = GameManager.Instance.GetPlayerSpeed();
         knockback = GameManager.Instance.GetPlayerKnockBack();
+
+        anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
     
 
@@ -76,6 +90,7 @@ public class FlatPlayerController : MonoBehaviour
         else
         {
             knockBackTime -= Time.deltaTime;
+            anim.SetFloat("knockBackTime", knockBackTime);
         }
     }
 
@@ -99,12 +114,14 @@ public class FlatPlayerController : MonoBehaviour
                     //knock back player
                     knockBackTime = -knockback;
                     Debug.Log("knocked back player");
+                    PlaySFX(playerKnocked);
                 }
                 else
                 {
                     //knock back enemy
                     enemy.KnockBackAI(knockback);
                     Debug.Log("knocked back enemy");
+                    PlaySFX(enemyKnocked);
                 }
             }
         }
@@ -213,6 +230,16 @@ public class FlatPlayerController : MonoBehaviour
             return;
         }
 
+    }
+
+
+    private void PlaySFX(AudioClip clip)
+    {
+        if (clip != null && audioSource != null)
+        {
+            audioSource.clip = clip;
+            audioSource.Play();
+        }
     }
 
 
