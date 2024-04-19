@@ -13,8 +13,8 @@ public class UpgradeMenu : MonoBehaviour
     [SerializeField]
     private Button nextRoundButton;
 
-    [SerializeField]
-    private TextMeshProUGUI tmp;
+    //[SerializeField]
+    //private TextMeshProUGUI tmp;
 
     // Start is called before the first frame update
     void Start()
@@ -33,18 +33,5 @@ public class UpgradeMenu : MonoBehaviour
         nextRoundButton.onClick.AddListener(
             g.NextRoundGame
             );
-
-
-        if (tmp != null)
-        {
-            if (g.GetPlayerWon())
-            {
-                tmp.text = "Player 1 has won!\n\nIncrease Speed: 25 points";
-            }
-            else
-            {
-                tmp.text = "Player 2 has won!\n\nIncrease Speed: 25 points";
-            }
-        }
     }
 }
