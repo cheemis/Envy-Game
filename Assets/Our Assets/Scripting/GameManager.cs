@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 
 public class GameManager : MonoBehaviour
@@ -26,9 +27,14 @@ public class GameManager : MonoBehaviour
     private float playerKnockBack = -2;
 
     [SerializeField]
-    private Text moneyText;
+    private TextMeshProUGUI moneyText;
     [SerializeField]
-    private Text enemyText;
+    private TextMeshProUGUI enemyText;
+
+
+    private GameObject statsObjects;
+    private TextMeshProUGUI statsText;
+
 
     [SerializeField]
     private bool playerWon = false;
@@ -59,6 +65,18 @@ public class GameManager : MonoBehaviour
             Instance = this;
             
             if(audioSource == null) audioSource = GetComponent<AudioSource>();
+
+            //set text
+            moneyText.text = playerTextString + playerMoney;
+            enemyText.text = enemyTextString + enemyMoney;
+
+            //set stats text objects
+            statsObjects = transform.GetChild(0).GetChild(1).gameObject; //hard coded
+            if (statsObjects != null)
+            {
+                statsText = statsObjects.GetComponentInChildren<TextMeshProUGUI>();
+                statsObjects.SetActive(false);
+            }
 
             DontDestroyOnLoad(gameObject);
         }
@@ -148,6 +166,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void SetStatsText(bool statsAwake)
+    {
+        if(statsObjects != null)
+        {
+            statsObjects.SetActive(statsAwake);
+
+            if (statsAwake)
+            {
+                statsText.text = " -- Stats --\nSpeed: " + playerSpeed + "\nStrength: " + playerKnockBack;
+            }
+        }
+
+    }
+
     // Check player money and upgrade fee for upgrade speed
     public void MayUpgradePlayerSpeed()
     {
@@ -155,12 +187,9 @@ public class GameManager : MonoBehaviour
         {
             playerMoney -= currentUpgradeSpeedFee;
             moneyText.text = playerTextString + playerMoney;
-            //FlatPlayerController player = GameObject.FindWithTag("Player").GetComponent<FlatPlayerController>();
-            //player.AddPlayerSpeed(currentSpeedUpgradeValue);
             playerSpeed += currentSpeedUpgradeValue;
 
-            // may change both current Speed fee and Current speed change value
-
+            SetStatsText(true);
         }
         else
         {
@@ -176,6 +205,8 @@ public class GameManager : MonoBehaviour
             playerMoney -= currentUpgradeSpeedFee;
             moneyText.text = playerTextString + playerMoney;
             playerKnockBack += currentKnockBackUpgradeValue;
+
+            SetStatsText(true);
         }
         else
         {
@@ -239,7 +270,19 @@ public class GameManager : MonoBehaviour
         enemyMoney = 0;
         enemyText.text = enemyTextString + enemyMoney;
 
+
         SceneManager.LoadScene(1);
+
+        //disable stats objects
+        SetStatsText(false);
+    }
+
+    public void LoadUpgradeScene()
+    {
+        SceneManager.LoadScene(2);
+
+        //enable stats objects
+        SetStatsText(true);
     }
 
     public bool GetPlayerWon()

@@ -84,6 +84,8 @@ public class EnemyAI : MonoBehaviour
         transform.position = tilePosition;
         lastNode = graphManager.GetNode(tilePosition);
         destinationNode = lastNode;
+
+        anim = GetComponent<Animator>();
     }
 
 

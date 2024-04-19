@@ -5,12 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class GameSwitch : MonoBehaviour
 {
-    
-
-
     public void LoadBuyScreen()
     {
-        SceneManager.LoadSceneAsync(2);
+        if(GameManager.Instance != null)
+        {
+            GameManager.Instance.LoadUpgradeScene();
+        }
+        else
+        {
+            Debug.Log("LOADED INCORRECTLY");
+            SceneManager.LoadSceneAsync(2);
+        }
     }
 
 

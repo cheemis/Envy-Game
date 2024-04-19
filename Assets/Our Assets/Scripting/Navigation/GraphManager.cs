@@ -188,7 +188,7 @@ public class GraphManager : MonoBehaviour
     }
 
 
-    public void DeleteThePelletOnNode(Vector2 position, bool isPlayer)
+    public bool DeleteThePelletOnNode(Vector2 position, bool isPlayer)
     {
         bool exist = pellets.ContainsKey(position);
         if (exist)
@@ -218,6 +218,7 @@ public class GraphManager : MonoBehaviour
 
             Destroy(p.gameObject);
         }
+        return exist;
     }
 
 

@@ -32,11 +32,15 @@ public class FlatPlayerController : MonoBehaviour
     private Animator anim;
     private AudioSource audioSource;
 
-    //Audio variables
+    //audio variables
     [SerializeField]
     private AudioClip playerKnocked;
     [SerializeField]
     private AudioClip enemyKnocked;
+
+    //visual variables
+    [SerializeField]
+    private GameObject sprite;
 
 
 
@@ -195,7 +199,8 @@ public class FlatPlayerController : MonoBehaviour
         if (distance < 0.1f)
         {
             // delete the pellet on that node
-            graphManager.DeleteThePelletOnNode(destination, true);
+            bool foundPellet = graphManager.DeleteThePelletOnNode(destination, true);
+            if (foundPellet) { anim.SetTrigger("eatPellet"); }
 
             UpdateDestination();
         }
@@ -210,7 +215,6 @@ public class FlatPlayerController : MonoBehaviour
     {
         Node newTarget = targetNode.GetNeighbor(currentDirection);
 
-        //Debug.Log("destination change: Old: " + targetNode.GetPosition() + ", New: " + (newTarget == null ? "Null" : newTarget.GetPosition()));
         lastNode = targetNode;
 
         //if the new direction worked
@@ -218,6 +222,20 @@ public class FlatPlayerController : MonoBehaviour
         {
             lastDirection = currentDirection;
             targetNode = targetNode.GetNeighbor(currentDirection);
+
+            //set sprite
+            if(sprite != null)
+            {
+                float rot = currentDirection == Vector2Int.up ? 90 :
+                        currentDirection == Vector2Int.down ? -90 : 0;
+
+                float scale = currentDirection == Vector2Int.left ? -1 : 1;
+
+
+                sprite.transform.eulerAngles = new Vector3(0, 0, rot);
+                sprite.transform.localScale = new Vector3(scale, 1, 1);
+            }
+
             return;
         }
 
