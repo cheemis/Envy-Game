@@ -4203,11 +4203,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1081255454758634861, guid: 11a9443559f6e2049996c052d5d95434, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 700
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 1081255454758634861, guid: 11a9443559f6e2049996c052d5d95434, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 80
+      value: 130
       objectReference: {fileID: 0}
     - target: {fileID: 1460006142221379793, guid: 11a9443559f6e2049996c052d5d95434, type: 3}
       propertyPath: m_text
@@ -4222,7 +4222,7 @@ PrefabInstance:
 
 
         Yellow tried this fifteen more times before
-        their untimely death riding Future Splash Mountain in the year 4062
+        their untimely death riding Future Splash Mountain in the year 4062.
 
 
 
@@ -4232,9 +4232,17 @@ PrefabInstance:
         (4033-4062)'
       objectReference: {fileID: 0}
     - target: {fileID: 1460006142221379793, guid: 11a9443559f6e2049996c052d5d95434, type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1460006142221379793, guid: 11a9443559f6e2049996c052d5d95434, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 2a9ef45acc72e3a4f94aa879ceb5aeec, type: 2}
+    - target: {fileID: 1460006142221379793, guid: 11a9443559f6e2049996c052d5d95434, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 1460006142221379793, guid: 11a9443559f6e2049996c052d5d95434, type: 3}
       propertyPath: m_sharedMaterial
       value: 

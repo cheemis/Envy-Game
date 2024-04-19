@@ -164,6 +164,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         // Debug winning 
         if (Input.GetKeyDown(KeyCode.I))
         {
@@ -171,6 +172,7 @@ public class GameManager : MonoBehaviour
             playerWon = true;
             FinishCurrentGame();
         }
+        */
     }
 
     private void PlaySFX(AudioClip clip)
@@ -343,7 +345,7 @@ public class GameManager : MonoBehaviour
         yield return StartCoroutine(FadeScreen(Color.white, Color.black, 2.5f));
 
         // Show and scroll the winner text
-        yield return StartCoroutine(ScrollText(52, 25));
+        yield return StartCoroutine(ScrollText(55, 25));
         SceneManager.LoadScene(0);
         Destroy(gameObject);
     }
